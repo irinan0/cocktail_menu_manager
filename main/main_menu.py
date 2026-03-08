@@ -18,6 +18,7 @@ def main():
         print("7. Bar Statistics (Summary)")
         print("0. Exit")
 
+    #menu selection
         choice = input("\nSelect option: ")
 
         if choice == "1":
