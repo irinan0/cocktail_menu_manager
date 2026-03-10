@@ -1,37 +1,34 @@
-
-
 import json
 
-
-def load_data(filename="cocktail_menu_data.json"):
-    """Loads cocktails from a JSON file."""
+def load_database(filename="bar_data.json"):
+    #Dummy data loader from JSON file.
     try:
-        with open(filename, 'r') as file:
-            return json.load(file)
-    except FileNotFoundError:
-        print(f"File {filename} not found. Starting with empty database.")
+        with open(filename, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+
         return {"Vodka": [], "Gin": [], "Rum": [], "Tequila": [], "Wine": [], "Non-Alcoholic": []}
 
-
-def save_data(cocktails_db):
-    """Saves database to JSON with a filter option."""
-    filename = input("Enter filename to save (e.g., my_bar.json): ")
+def save_database(db):
+    #Save to file with a filtering option
+    print("\n--- SAVE DATABASE ---")
+    filename = input("Enter filename (e.g., backup.json): ").strip()
     if not filename.endswith('.json'): filename += '.json'
 
-    print("\n1. Save All\n2. Filter by Category")
-    choice = input("Choice: ")
+    print("1. Save All Categories")
+    print("2. Filter (Save only one category)")
+    mode = input("Select mode: ")
 
-    data_to_save = cocktails_db
-    if choice == "2":
-        categories = list(cocktails_db.keys())
-        for i, cat in enumerate(categories): print(f"{i + 1}. {cat}")
+    data_to_save = db
+    if mode == "2":
+        cats = list(db.keys())
+        for i, cat in enumerate(cats): print(f"{i+1}. {cat}")
         try:
             idx = int(input("Select category index: ")) - 1
-            cat = categories[idx]
-            data_to_save = {cat: cocktails_db[cat]}
+            data_to_save = {cats[idx]: db[cats[idx]]}
         except:
-            print("Invalid index. Saving all.")
+            print("Invalid choice, saving all.")
 
-    with open(filename, 'w') as file:
-        json.dump(data_to_save, file, indent=4)
-    print(f"Data saved to {filename}")
+    with open(filename, 'w') as f:
+        json.dump(data_to_save, f, indent=4)
+    print(f"Successfully saved to {filename}")

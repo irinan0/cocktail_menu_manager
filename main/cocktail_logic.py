@@ -1,94 +1,64 @@
-# cocktail_logic.py
 
-def edit_cocktail(cocktails_db):
-    """
-    Menu to update proportions or remove ingredients.
-    Requirement: Maintain minimum 2 ingredients.
-    """
-    print("\n--- Edit Recipe ---")
+#Logic Module
+#Handles CRUD operations (Create, Read, Update) and Search features.
 
-    # 1. Select Category
-    categories = list(cocktails_db.keys())
+
+def add_cocktail(db):
+    print("--- CREATE NEW COCKTAIL ---")
+    name = input("Cocktail Name: ").strip()
+    if not name:
+        print("Name cannot be empty!")
+        return db
+
+    # Category selection using keys from the dictionary
+    categories = list(db.keys())
     for i, cat in enumerate(categories):
         print(f"{i + 1}. {cat}")
 
     try:
-        cat_choice = int(input("Select category number: ")) - 1
-        category = categories[cat_choice]
+        idx = int(input("Select base category number: ")) - 1
+        selected_cat = categories[idx]
     except (ValueError, IndexError):
-        print("Invalid category.")
-        return cocktails_db
+        print("Invalid category selection.")
+        return db
 
-    if not cocktails_db[category]:
-        print(f"No cocktails found in {category}.")
-        return cocktails_db
-
-    # 2. Select Cocktail
-    print(f"\nCocktails in {category}:")
-    for i, cocktail in enumerate(cocktails_db[category]):
-        print(f"{i + 1}. {cocktail['name']}")
+        # Ingredient collection loop
+    ingredients = {}
+    print("Enter ingredients (type 'done' to finish):")
+    while True:
+        ing_name = input(" - Ingredient: ").strip()
+        if ing_name.lower() == 'done':
+            if len(ingredients) < 2:
+                print("⚠️ Error: You must have at least 2 ingredients!")
+                continue
+            break
 
     try:
-        cocktail_index = int(input("Select cocktail to edit: ")) - 1
-        target = cocktails_db[category][cocktail_index]
-    except (ValueError, IndexError):
-        print("Invalid selection.")
-        return cocktails_db
+        amount = float(input(f"   Amount for {ing_name} (ml): "))
+        ingredients[ing_name] = amount
+    except ValueError:
+        print("   ❌ Invalid amount. Use numbers only.")
 
-    # 3. Edit Sub-menu
-    while True:
-        print(f"\nEditing: {target['name']}")
-        print("Current ingredients:", target['ingredients'])
-        print("1. Change proportion")
-        print("2. Remove ingredient")
-        print("0. Back to main menu")
-
-        mode = input("Select action: ")
-
-        if mode == "1":
-            # Change Proportion
-            ing_list = list(target['ingredients'].keys())
-            for i, ing in enumerate(ing_list):
-                print(f"{i + 1}. {ing}: {target['ingredients'][ing]}")
-
-            try:
-                ing_choice = int(input("Select ingredient to change: ")) - 1
-                ing_name = ing_list[ing_choice]
-                new_amount = float(input(f"Enter new amount for {ing_name}: "))
-                target['ingredients'][ing_name] = new_amount
-                print("Proportions updated!")
-            except (ValueError, IndexError):
-                print("Error: Invalid input.")
-
-        elif mode == "2":
-            # Remove Ingredient
-            if len(target['ingredients']) <= 2:
-                print("Error: Cannot remove! A cocktail must have at least 2 ingredients.")
-                continue
-
-            ing_list = list(target['ingredients'].keys())
-            for i, ing in enumerate(ing_list):
-                print(f"{i + 1}. {ing}")
-
-            try:
-                ing_choice = int(input("Select ingredient to remove: ")) - 1
-                ing_name = ing_list[ing_choice]
-                del target['ingredients'][ing_name]  # Удаление ключа из словаря (Урок 4)
-                print(f"Removed {ing_name}.")
-            except (ValueError, IndexError):
-                print("Error: Invalid selection.")
-
-        elif mode == "0":
-            break
-        else:
-            print("Invalid option.")
-
-    return cocktails_db
+    # Append the new cocktail dictionary to the list in that category
+    new_drink = {"name": name, "ingredients": ingredients, "custom": True}
+    db[selected_cat].append(new_drink)
+    print(f"\n✅ {name} added to {selected_cat} successfully!")
+    return db
 
 
-def add_cocktail(db):
-    return None
+def search_by_ingredient(db):
+    #Searches cocktails
+    print("--- SEARCH BY INGREDIENT ---")
+    query = input("Enter ingredient to find: ").lower().strip()
 
+    found = False
+    # Nested loop: Category -> Cocktail List -> Ingredients Dictionary
+    for cat, drinks in db.items():
+        for drink in drinks:
+            # Check if query is in any of the ingredient names
+            if any(query in ing.lower() for ing in drink['ingredients']):
+                print(f"👉 Found match: {drink['name']} (Base: {cat})")
+                found = True
 
-def search_ingredient(db):
-    return None
+    if not found:
+        print(f"No cocktails found containing '{query}'.")
