@@ -1,49 +1,45 @@
-import os
-import file_handler
-import stats
-import cocktail_logic
+import cocktail_viewer
+import cocktail_manager
+import analytics
+import dummy_data
 
-# Main ingredients list
 def main():
-    cocktails_db = {
-        "Vodka": [],
-        "Gin": [],
-        "Rum": [],
-        "Tequila": [],
-        "Wine": [],
-        "Non-Alcoholic": [],
-   }
-db = file_handler.load_database()
+    """
+    Main entry point for The Mixology Hub.
+    Manages the primary navigation loop and initializes the data.
+    """
+    # Requirement: Initialize data structures at the top
+    cocktails = []
 
-# Main menu initialization
-while True:
+    while True:
+        print("\n" + "="*30)
+        print("🍸 THE MIXOLOGY HUB 🍸")
+        print("="*30)
+        print("1. View/Filter Recipes")
+        print("2. Add New Recipe")
+        print("3. Update Existing Recipe")
+        print("4. Mixology Analytics")
+        print("5. Load Dummy Data (JSON/CSV)")
+        print("6. Exit")
+        
+        choice = input("\nSelect an option (1-6): ").strip()
 
-        print("🍸 COCKTAIL BAR MANAGER PRO")
-        print("=" * 35)
-        print(" [1] 📖 View Full Menu")
-        print(" [2] ➕ Add New Cocktail")
-        print(" [3] 🔍 Search by Ingredient")
-        print(" [4] 📊 Bar Statistics")
-        print(" [5] 💾 Save/Export Data")
-        print(" [0] 🚪 Exit")
-        print("-" * 35)
-
-        choice = input("\nSelect an option (0-4): ").strip()
-
-        if choice == "1":
-            print("\n[SYSTEM] -> Navigating to Display Module...")
-        elif choice == "2":
-            print("\n[SYSTEM] -> Navigating to Manage Module...")
-        elif choice == "3":
-            print("\n[SYSTEM] -> Navigating to Statistics Module...")
-        elif choice == "4":
-            print("\n[SYSTEM] -> Navigating to File Module...")
-        elif choice == "0":
-            print("\nExiting. Cheers!")
+        # Requirement: Modular Routing
+        if choice == '1':
+            cocktail_viewer.show_menu(cocktails)
+        elif choice == '2':
+            cocktails = cocktail_manager.add_menu(cocktails)
+        elif choice == '3':
+            cocktails = cocktail_manager.update_menu(cocktails)
+        elif choice == '4':
+            analytics.show_summary(cocktails)
+        elif choice == '5':
+            cocktails = dummy_data.load_menu(cocktails)
+        elif choice == '6':
+            print("Cheers! Program closed.")
             break
         else:
-            # Invalid input is caught and handled
-            print("\n[ERROR] Invalid input. Please enter a number between 0 and 4.")
+            print("Invalid input. Please enter a number between 1 and 6.")
 
 if __name__ == "__main__":
     main()
