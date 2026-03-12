@@ -1,45 +1,61 @@
-import cocktail_viewer
-import cocktail_manager
-import analytics
-import dummy_data
+import os
+import file_handler
+import stats
+import cocktail_logic
+
+
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def pause():
+    input("\nPress ENTER to continue...")
+
 
 def main():
-    """
-    Main entry point for The Mixology Hub.
-    Manages the primary navigation loop and initializes the data.
-    """
-    # Requirement: Initialize data structures at the top
-    cocktails = []
+    # Requirement 3.1: Data structure initialized before the loop
+    db = file_handler.load_database()
 
     while True:
-        print("\n" + "="*30)
-        print("🍸 THE MIXOLOGY HUB 🍸")
-        print("="*30)
-        print("1. View/Filter Recipes")
-        print("2. Add New Recipe")
-        print("3. Update Existing Recipe")
-        print("4. Mixology Analytics")
-        print("5. Load Dummy Data (JSON/CSV)")
-        print("6. Exit")
-        
-        choice = input("\nSelect an option (1-6): ").strip()
+        clear()
+        print("🍸 COCKTAIL BAR MANAGER PRO")
+        print("=" * 30)
+        print("1. 📖 View Full Menu")
+        print("2. ➕ Add Custom Cocktail")
+        print("3. 🔍 Search by Ingredient")
+        print("4. 📊 Bar Statistics")
+        print("5. 💾 Save/Export Database")
+        print("0. 🚪 Exit")
 
-        # Requirement: Modular Routing
-        if choice == '1':
-            cocktail_viewer.show_menu(cocktails)
-        elif choice == '2':
-            cocktails = cocktail_manager.add_menu(cocktails)
-        elif choice == '3':
-            cocktails = cocktail_manager.update_menu(cocktails)
-        elif choice == '4':
-            analytics.show_summary(cocktails)
-        elif choice == '5':
-            cocktails = dummy_data.load_menu(cocktails)
-        elif choice == '6':
-            print("Cheers! Program closed.")
+        choice = input("\nSelect Option: ").strip()
+
+        if choice == "1":
+            clear()
+            stats.display_all(db)
+            pause()
+        elif choice == "2":
+            clear()
+            db = cocktail_logic.add_cocktail(db)
+            pause()
+        elif choice == "3":
+            clear()
+            cocktail_logic.search_by_ing(db)
+            pause()
+        elif choice == "4":
+            clear()
+            stats.show_summary(db)
+            pause()
+        elif choice == "5":
+            clear()
+            file_handler.save_database(db)
+            pause()
+        elif choice == "0":
+            print("Goodbye!")
             break
         else:
-            print("Invalid input. Please enter a number between 1 and 6.")
+            print("Invalid input. Try again.")
+            pause()
+
 
 if __name__ == "__main__":
     main()

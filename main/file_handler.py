@@ -1,16 +1,16 @@
 import json
 
 def load_database(filename="bar_data.json"):
-    #Dummy data loader from JSON file.
+    """Requirement 3.5: Dummy data loader from JSON file."""
     try:
         with open(filename, 'r') as f:
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
-
+        # Default structure if file is missing or corrupted
         return {"Vodka": [], "Gin": [], "Rum": [], "Tequila": [], "Wine": [], "Non-Alcoholic": []}
 
 def save_database(db):
-    #Save to file with a filtering option
+    """Requirement 3.6: Save to file with a filtering option."""
     print("\n--- SAVE DATABASE ---")
     filename = input("Enter filename (e.g., backup.json): ").strip()
     if not filename.endswith('.json'): filename += '.json'
