@@ -1,3 +1,5 @@
+
+
 def show_summary(db):
     """Provides a formatted table of the bar's status."""
     print("\n" + "="*35)

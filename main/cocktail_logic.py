@@ -1,5 +1,5 @@
 def add_cocktail(db):
-    """Requirement 3.3: Add data with validation (min 2 ingredients)."""
+    """ Add data with validation (min 2 ingredients)."""
     print("\n--- CREATE NEW COCKTAIL ---")
     name = input("Enter Cocktail Name: ").strip()
 
@@ -34,7 +34,6 @@ def add_cocktail(db):
 
 
 def search_by_ing(db):
-    """Search functionality using membership testing (Lesson 3)."""
     query = input("\nEnter ingredient to search for: ").lower()
     found = False
     for cat, drinks in db.items():
