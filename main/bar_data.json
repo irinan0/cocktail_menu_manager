@@ -1,142 +1,142 @@
 [
   {
-      "name": "Mojito",
-
-      "category": "Alcoholic",
-      "ingredients": ["Light rum", "Lime", "Sugar", "Mint", "Soda water"],
-      "glass": "Highball glass",
-      "instructions": "Muddle mint and sugar with lime juice. Add rum and top with soda water."
+    "name": "Mojito",
+    "category": "Alcoholic",
+    "ingredients": ["Light rum", "Lime", "Sugar", "Mint", "Soda water"],
+    "glass": "Highball glass",
+    "instructions": "Muddle mint and sugar with lime juice. Add rum and top with soda water."
   },
   {
-      "name": "Margarita",
-      "category": "Alcoholic",
-      "ingredients": ["Tequila", "Triple sec", "Lime juice", "Salt"],
-      "glass": "Margarita glass",
-      "instructions": "Rub rim with lime and salt. Shake ingredients with ice and strain."
+    "name": "Margarita",
+    "category": "Alcoholic",
+    "ingredients": ["Tequila", "Triple sec", "Lime juice", "Salt"],
+    "glass": "Margarita glass",
+    "instructions": "Rub rim with lime and salt. Shake ingredients with ice and strain."
   },
   {
-      "name": "Old Fashioned",
-      "category": "Alcoholic",
-      "ingredients": ["Bourbon", "Angostura bitters", "Sugar", "Water"],
-      "glass": "Old Fashioned glass",
-      "instructions": "Muddle sugar with bitters and water, add ice and bourbon. Stir."
+    "name": "Old Fashioned",
+    "category": "Alcoholic",
+    "ingredients": ["Bourbon", "Angostura bitters", "Sugar", "Water"],
+    "glass": "Old Fashioned glass",
+    "instructions": "Muddle sugar with bitters and water, add ice and bourbon. Stir."
   },
   {
-      "name": "Dry Martini",
-      "category": "Alcoholic",
-      "ingredients": ["Gin", "Dry vermouth", "Olive"],
-      "glass": "Cocktail glass",
-      "instructions": "Stir gin and vermouth with ice cubes. Strain into chilled glass. Add olive."
+    "name": "Dry Martini",
+    "category": "Alcoholic",
+    "ingredients": ["Gin", "Dry vermouth", "Olive"],
+    "glass": "Cocktail glass",
+    "instructions": "Stir gin and vermouth with ice cubes. Strain into chilled glass. Add olive."
   },
   {
-      "name": "Cosmopolitan",
-      "category": "Alcoholic",
-      "ingredients": ["Vodka", "Triple sec", "Lime juice", "Cranberry juice"],
-      "glass": "Cocktail glass",
-      "instructions": "Shake all ingredients with ice. Strain into a chilled glass."
+    "name": "Cosmopolitan",
+    "category": "Alcoholic",
+    "ingredients": ["Vodka", "Triple sec", "Lime juice", "Cranberry juice"],
+    "glass": "Cocktail glass",
+    "instructions": "Shake all ingredients with ice. Strain into a chilled glass."
   },
   {
-      "name": "Daiquiri",
-      "category": "Alcoholic",
-      "ingredients": ["Light rum", "Lime juice", "Sugar"],
-      "glass": "Cocktail glass",
-      "instructions": "Shake with ice and strain into a chilled cocktail glass."
+    "name": "Daiquiri",
+    "category": "Alcoholic",
+    "ingredients": ["Light rum", "Lime juice", "Sugar"],
+    "glass": "Cocktail glass",
+    "instructions": "Shake with ice and strain into a chilled cocktail glass."
   },
   {
-      "name": "Whiskey Sour",
-      "category": "Alcoholic",
-      "ingredients": ["Bourbon", "Lemon juice", "Sugar", "Cherry"],
-      "glass": "Old Fashioned glass",
-      "instructions": "Shake with ice. Strain into ice-filled glass. Garnish with cherry."
+    "name": "Whiskey Sour",
+    "category": "Alcoholic",
+    "ingredients": ["Bourbon", "Lemon juice", "Sugar", "Cherry"],
+    "glass": "Old Fashioned glass",
+    "instructions": "Shake with ice. Strain into ice-filled glass. Garnish with cherry."
   },
   {
-      "name": "Manhattan",
-      "category": "Alcoholic",
-      "ingredients": ["Sweet Vermouth", "Bourbon", "Angostura bitters", "Cherry"],
-      "glass": "Cocktail glass",
-      "instructions": "Stir with ice and strain into a chilled glass. Garnish with cherry."
+    "name": "Manhattan",
+    "category": "Alcoholic",
+    "ingredients": ["Sweet Vermouth", "Bourbon", "Angostura bitters", "Cherry"],
+    "glass": "Cocktail glass",
+    "instructions": "Stir with ice and strain into a chilled glass. Garnish with cherry."
   },
   {
-      "name": "Negroni",
-      "category": "Alcoholic",
-      "ingredients": ["Gin", "Campari", "Sweet Vermouth"],
-      "glass": "Old Fashioned glass",
-      "instructions": "Stir into glass over ice. Garnish with orange peel."
+    "name": "Negroni",
+    "category": "Alcoholic",
+    "ingredients": ["Gin", "Campari", "Sweet Vermouth"],
+    "glass": "Old Fashioned glass",
+    "instructions": "Stir into glass over ice. Garnish with orange peel."
   },
   {
-      "name": "Moscow Mule",
-      "category": "Alcoholic",
-      "ingredients": ["Vodka", "Lime juice", "Ginger beer"],
-      "glass": "Copper Mug",
-      "instructions": "Combine vodka and lime juice in a mug. Add ice and ginger beer."
+    "name": "Moscow Mule",
+    "category": "Alcoholic",
+    "ingredients": ["Vodka", "Lime juice", "Ginger beer"],
+    "glass": "Copper Mug",
+    "instructions": "Combine vodka and lime juice in a mug. Add ice and ginger beer."
   },
   {
-      "name": "Shirley Temple",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Ginger ale", "Grenadine", "Maraschino cherry"],
-      "glass": "Highball glass",
-      "instructions": "Pour ginger ale over ice. Add grenadine. Garnish with cherry."
+    "name": "Shirley Temple",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Ginger ale", "Grenadine", "Maraschino cherry"],
+    "glass": "Highball glass",
+    "instructions": "Pour ginger ale over ice. Add grenadine. Garnish with cherry."
   },
   {
-      "name": "Virgin Mary",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Tomato juice", "Lemon juice", "Worcestershire sauce", "Tabasco"],
-      "glass": "Highball glass",
-      "instructions": "Stir ingredients with ice. Garnish with celery stalk."
+    "name": "Virgin Mary",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Tomato juice", "Lemon juice", "Worcestershire sauce", "Tabasco"],
+    "glass": "Highball glass",
+    "instructions": "Stir ingredients with ice. Garnish with celery stalk."
   },
   {
-      "name": "Virgin Piña Colada",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Pineapple juice", "Coconut cream", "Crushed ice"],
-      "glass": "Hurricane glass",
-      "instructions": "Blend all ingredients until smooth. Pour into glass."},
-  {
-      "name": "Virgin Mojito",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Mint", "Lime juice", "Sugar", "Soda water"],
-      "glass": "Highball glass",
-      "instructions": "Muddle mint and sugar. Add lime and ice. Top with soda water."
+    "name": "Virgin Piña Colada",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Pineapple juice", "Coconut cream", "Crushed ice"],
+    "glass": "Hurricane glass",
+    "instructions": "Blend all ingredients until smooth. Pour into glass."
   },
   {
-      "name": "Arnold Palmer",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Iced tea", "Lemonade"],
-      "glass": "Highball glass",
-      "instructions": "Fill glass with ice. Fill half with tea and half with lemonade."
+    "name": "Virgin Mojito",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Mint", "Lime juice", "Sugar", "Soda water"],
+    "glass": "Highball glass",
+    "instructions": "Muddle mint and sugar. Add lime and ice. Top with soda water."
   },
   {
-      "name": "Roy Rogers",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Cola", "Grenadine", "Maraschino cherry"],
-      "glass": "Highball glass",
-      "instructions": "Pour cola over ice. Add grenadine. Garnish with cherry."
+    "name": "Arnold Palmer",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Iced tea", "Lemonade"],
+    "glass": "Highball glass",
+    "instructions": "Fill glass with ice. Fill half with tea and half with lemonade."
   },
   {
-      "name": "Cinderella",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Orange juice", "Pineapple juice", "Lemon juice", "Soda water"],
-      "glass": "Highball glass",
-      "instructions": "Shake juices with ice. Strain into glass and top with soda water."
+    "name": "Roy Rogers",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Cola", "Grenadine", "Maraschino cherry"],
+    "glass": "Highball glass",
+    "instructions": "Pour cola over ice. Add grenadine. Garnish with cherry."
   },
   {
-      "name": "Safe Sex on the Beach",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Peach nectar", "Orange juice", "Cranberry juice"],
-      "glass": "Highball glass",
-      "instructions": "Shake nectar and orange juice. Pour over ice. Top with cranberry juice."
+    "name": "Cinderella",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Orange juice", "Pineapple juice", "Lemon juice", "Soda water"],
+    "glass": "Highball glass",
+    "instructions": "Shake juices with ice. Strain into glass and top with soda water."
   },
   {
-      "name": "Pussy Foot",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Orange juice", "Lemon juice", "Lime juice", "Grenadine", "Egg yolk"],
-      "glass": "Cocktail glass",
-      "instructions": "Shake all ingredients with ice. Strain into a chilled glass."
+    "name": "Safe Sex on the Beach",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Peach nectar", "Orange juice", "Cranberry juice"],
+    "glass": "Highball glass",
+    "instructions": "Shake nectar and orange juice. Pour over ice. Top with cranberry juice."
   },
   {
-      "name": "Virgin Sunrise",
-      "category": "Non-Alcoholic",
-      "ingredients": ["Orange juice", "Grenadine"],
-      "glass": "Highball glass",
-      "instructions": "Fill glass with ice and orange juice. Slowly pour grenadine over the top."
+    "name": "Pussy Foot",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Orange juice", "Lemon juice", "Lime juice", "Grenadine", "Egg yolk"],
+    "glass": "Cocktail glass",
+    "instructions": "Shake all ingredients with ice. Strain into a chilled glass."
+  },
+  {
+    "name": "Virgin Sunrise",
+    "category": "Non-Alcoholic",
+    "ingredients": ["Orange juice", "Grenadine"],
+    "glass": "Highball glass",
+    "instructions": "Fill glass with ice and orange juice. Slowly pour grenadine over the top."
   }
 ]

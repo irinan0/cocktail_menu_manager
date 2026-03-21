@@ -1,16 +1,34 @@
 import json
 
+
 def load_database(filename="bar_data.json"):
-    """Dummy data loader from JSON file."""
     try:
         with open(filename, 'r') as f:
-            return json.load(f)
+            raw_data = json.load(f)
+
+        # If the data is a list, restructure it into a dictionary by category
+        if isinstance(raw_data, list):
+            structured_db = {}
+            for drink in raw_data:
+                cat = drink.get('category', 'Uncategorized')
+                if cat not in structured_db:
+                    structured_db[cat] = []
+
+                # Convert ingredients list to dict to match your stats.py logic
+                if isinstance(drink['ingredients'], list):
+                    # Defaulting to 0ml since the JSON doesn't have amounts
+                    drink['ingredients'] = {ing: 0 for ing in drink['ingredients']}
+
+                structured_db[cat].append(drink)
+            return structured_db
+
+        return raw_data
+
     except (FileNotFoundError, json.JSONDecodeError):
-        # Default structure if file is missing or corrupted
-        return {"Vodka": [], "Gin": [], "Rum": [], "Tequila": [], "Wine": [], "Non-Alcoholic": []}
+        return {"Alcoholic": [], "Non-Alcoholic": []}
 
 def save_database(db):
-    """Save to file with a filtering option."""
+    """ Save to file with a filtering option."""
     print("\n--- SAVE DATABASE ---")
     filename = input("Enter filename (e.g., backup.json): ").strip()
     if not filename.endswith('.json'): filename += '.json'

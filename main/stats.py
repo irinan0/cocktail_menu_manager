@@ -1,31 +1,34 @@
 
+def display_all_recipes(db):
+    """ Displays data from JSON using nested loops."""
+    print("--- 📖 CURRENT COCKTAIL MENU ---")
+
+    found_any = False
+    for category, drinks in db.items():
+        if drinks:
+            found_any = True
+            print(f"\n⭐ {category.upper()} BASE:")
+
+            for drink in drinks:
+                # Distinguish between original and user-added drinks
+                tag = "[CLASSIC]" if not drink.get('custom') else "[USER-CREATED]"
+                print(f"  • {drink['name']} {tag}")
+
+                # Nested loop for ingredients (Dictionary inside List)
+                for ing, amt in drink['ingredients'].items():
+                    print(f"    - {ing}: {amt}ml")
+
+    if not found_any:
+        print("\nThe bar is currently empty! Use Option 2 to add drinks.")
+
+
 def show_summary(db):
-    """Provides a formatted table of the bar's status."""
-    print("\n" + "="*35)
-    print(f"{'CATEGORY':<20} | {'COUNT':<10}")
-    print("-" * 35)
+    """ Shows a formatted status table."""
+    print(f"{'CATEGORY':<20} | {'COUNT':<5}")
+    print("-" * 28)
     total = 0
     for cat, drinks in db.items():
-        print(f"{cat:<20} | {len(drinks):<10}")
+        print(f"{cat:<20} | {len(drinks):<5}")
         total += len(drinks)
-    print("-" * 35)
-    print(f"{'TOTAL RECIPES':<20} | {total:<10}")
-    print("="*35)
-
-def display_all(db):
-    """Displays full details of every cocktail."""
-    print("\n--- FULL COCKTAIL MENU ---")
-    for cat, drinks in db.items():
-        if drinks:
-            print(f"\n[{cat.upper()}]")
-            for d in drinks:
-                status = "(Custom)" if d.get('custom') else "(Classic)"
-                print(f" • {d['name']} {status}")
-                for ing, amt in d['ingredients'].items():
-                    print(f"   - {ing}: {amt}ml")
-
-def display_all_recipes(db):
-    """ Display all recipes """
-    print("\n" + "="*45)
-    print("       📖 THE COMPLETE COCKTAIL BOOK")
-    print("="*45)
+    print("-" * 28)
+    print(f"{'TOTAL RECIPES':<20} | {total:<5}")
