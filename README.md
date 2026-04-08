@@ -59,3 +59,5 @@ The system utilizes a structured JSON format where each cocktail entry includes:
 ## Requirements
 * Python 3.6+
 * Standard Libraries: os, json
+
+## Open for contribution
