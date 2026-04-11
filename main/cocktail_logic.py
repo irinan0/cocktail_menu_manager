@@ -84,3 +84,48 @@ def search_by_ing(db):
                 print(f"-> Found '{d['name']}' in {cat}")
                 found = True
     if not found: print("No matches found.")
+
+
+def delete_manu(db):
+    """Allows user to delete all cocktails from the database."""
+    print("\n--- DELETE ALL MENU ---")
+
+    # List categories
+    cats = list(db.keys())
+    if not cats:
+        print("The database is empty.")
+        return db
+
+    for i, c in enumerate(cats):
+        print(f"{i + 1}. {c}")
+
+    try:
+        cat_idx = int(input("Select Category Number: ")) - 1
+        category = cats[cat_idx]
+        drinks = db[category]
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+        return db
+
+    if not drinks:
+        print(f"No drinks found in {category}.")
+        return db
+
+    # List drinks in that category
+    print(f"\nDrinks in {category}:")
+    for i, d in enumerate(drinks):
+        print(f"{i + 1}. {d['name']}")
+
+    try:
+        is_delete = str(input("Delete all drinks in this category ? Y/N "))
+        if is_delete is "Y" :
+            removed_drink = drinks.clear()
+            print(f"Successfully deleted !")
+        elif is_delete is "N" :
+            print(f"Nothing changed :)")
+        else :
+            print("Invalid selection.")
+    except (ValueError, IndexError):
+        print("Invalid selection.")
+
+    return db

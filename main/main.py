@@ -26,6 +26,7 @@ def main():
         print("4. 🔍 Search by Ingredient")
         print("5. 📊 Bar Statistics")
         print("6. 💾 Save/Export Database")
+        print("7. ❌ Delete ALL Menu")
         print("0. 🚪 Exit")
 
         choice = input("\nSelect Option: ").strip()
@@ -54,6 +55,11 @@ def main():
             clear()
             file_handler.save_database(db)
             pause()
+        elif choice == "7":
+            clear()
+            cocktail_logic.delete_manu(db)
+            pause()
+            #cocktail_logic.delete_manu(db)
         elif choice == "0":
             print("Goodbye!")
             break
