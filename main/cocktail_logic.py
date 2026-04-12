@@ -1,3 +1,4 @@
+import random
 
 def add_cocktail(db):
     """ Add data with validation (min 2 ingredients)."""
@@ -129,3 +130,48 @@ def delete_manu(db):
         print("Invalid selection.")
 
     return db
+
+# (Ingredient name, is the ingredient alcoholic?, 
+# minimum recommended amount, maximum recommended amount)
+common_cocktail_ingredients = [
+    ("Sugar Syrup", False, 5, 15),
+    ("Lemon Juice", False, 10, 30),
+    ("Lime Juice", False, 10, 30),
+    ("Gin (dry)", True, 30, 60),
+    ("Vodka", True, 30, 60),
+    ("Angostura", True, 1, 5),
+    ("Cognac", True, 30, 60),
+    ("Dry Vermouth", True, 15, 30),
+    ("Sweet Vermouth", True, 15, 30),
+    ("Orange Bitters", True, 1, 5),
+    ("Orange Juice", False, 30, 90),
+    ("Triple sec liqueur", True, 10, 30),
+    ("Pineapple Juice", False, 30, 90),
+    ("Rum", True, 30, 60),
+    ("Bourbon Whiskey", True, 30, 60),
+    ("Egg White", False, 15, 30),
+    ("Tequila Reposado", True, 30, 60),
+    ("Pomegranate Syrup", False, 5, 15),
+    ("Apple Cider", True, 30, 90)
+]
+
+def random_cocktail():
+    cocktail_amounts_in_ml = 0
+    is_cocktail_alcoholic = False
+    ingredients_used = []
+    while(cocktail_amounts_in_ml < 100):
+        # Pick a random ingredient
+        ingredient = common_cocktail_ingredients[random.randrange(0, len(common_cocktail_ingredients))]
+        # Pick amount of ingredient
+        ingredient_amount = random.randrange(ingredient[2],ingredient[3])
+        ingredients_used.append((ingredient,ingredient_amount))
+        # If one ingredient is alcoholic, the entire drink is alcoholic
+        cocktail_amounts_in_ml += ingredient_amount
+        if (ingredient[1] == True): 
+            is_cocktail_alcoholic = True
+    
+    # Display the created monstrosity
+    print(f"Woohoo! A new {"" if is_cocktail_alcoholic else "non-"}alcoholic cocktail is born:")
+    for ingredient, amount in ingredients_used:
+        print(f"\t- {ingredient[0]}: {amount}.0ml")
+    print(f"For a grand total of {cocktail_amounts_in_ml}ml!\nRemember, never drink and drive.")

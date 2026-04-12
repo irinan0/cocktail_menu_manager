@@ -27,6 +27,7 @@ def main():
         print("5. 📊 Bar Statistics")
         print("6. 💾 Save/Export Database")
         print("7. ❌ Delete ALL Menu")
+        print("8. 🎲 Looking for inspiration? Create a Random Cocktail!")
         print("0. 🚪 Exit")
 
         choice = input("\nSelect Option: ").strip()
@@ -60,6 +61,10 @@ def main():
             cocktail_logic.delete_manu(db)
             pause()
             #cocktail_logic.delete_manu(db)
+        elif choice == "8":
+            clear()
+            cocktail_logic.random_cocktail()
+            pause()
         elif choice == "0":
             print("Goodbye!")
             break
