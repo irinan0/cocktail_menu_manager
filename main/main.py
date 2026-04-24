@@ -2,6 +2,7 @@ import os
 import file_handler
 import stats
 import cocktail_logic
+import sort_menu
 
 
 def clear():
@@ -27,6 +28,7 @@ def main():
         print("5. 📊 Bar Statistics")
         print("6. 💾 Save/Export Database")
         print("7. ❌ Delete ALL Menu")
+        print("8. ↕  Sort cocktails")
         print("0. 🚪 Exit")
 
         choice = input("\nSelect Option: ").strip()
@@ -58,6 +60,10 @@ def main():
         elif choice == "7":
             clear()
             cocktail_logic.delete_manu(db)
+            pause()
+        elif choice == "8":
+            clear()
+            sort_menu.sort_menu(db)
             pause()
             #cocktail_logic.delete_manu(db)
         elif choice == "0":
