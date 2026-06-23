@@ -1,29 +1,33 @@
 import json
+import os
+
+# Get the directory where file_handler.py lives
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def load_database(filename="bar_data.json"):
+    # Build an absolute path to the JSON file
+    filepath = os.path.join(BASE_DIR, filename)
+
     try:
-        with open(filename, 'r') as f:
+        with open(filepath, 'r') as f:
             raw_data = json.load(f)
 
-        # If the data is a list, restructure it into a dictionary by category
         if isinstance(raw_data, list):
-            structured_db = {}
+
+            structured_db = {"Alcoholic": [], "Non-Alcoholic": []}  # Pre-populate keys
             for drink in raw_data:
                 cat = drink.get('category', 'Uncategorized')
                 if cat not in structured_db:
                     structured_db[cat] = []
 
-                # Convert ingredients list to dict to match your stats.py logic
-                if isinstance(drink['ingredients'], list):
-                    # Defaulting to 0ml since the JSON doesn't have amounts
-                    drink['ingredients'] = {ing: 0 for ing in drink['ingredients']}
-
+                # Keep ingredients as a dictionary (your JSON already matches this!)
                 structured_db[cat].append(drink)
             return structured_db
 
         return raw_data
 
     except (FileNotFoundError, json.JSONDecodeError):
+        # Fallback if the file is missing or corrupted
         return {"Alcoholic": [], "Non-Alcoholic": []}
 
 def save_database(db):
