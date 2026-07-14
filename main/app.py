@@ -1,160 +1,64 @@
-import streamlit as st
+from flask import Flask, render_template, request, redirect, url_for
 import file_handler
-import stats
 
-# Configure the web page
-st.set_page_config(page_title="Cocktail Bar Manager Pro", page_icon="🍸", layout="wide")
+app = Flask(__name__)
 
-# Initialize the database into Streamlit's session state so it persists across button clicks
-if 'db' not in st.session_state:
-    st.session_state.db = file_handler.load_database()
 
-db = st.session_state.db
+@app.route('/')
+def index():
+    # Load database using your existing backend
+    db = file_handler.load_database()
 
-st.title("🍸 Cocktail Bar Manager Pro")
-st.markdown("---")
+    # Calculate statistics
+    stats = {cat: len(drinks) for cat, drinks in db.items()}
 
-# Navigation Menu in Sidebar
-menu_option = st.sidebar.radio(
-    "Navigation Menu",
-    [
-        "📖 View Full Menu",
-        "➕ Add Custom Cocktail",
-        "❌ Delete a Cocktail",
-        "🔍 Search by Ingredient",
-        "📊 Bar Statistics"
-    ]
-)
+    # Render the HTML template, passing the data to it
+    return render_template('index.html', db=db, stats=stats)
 
-# -----------------------------------------------------------------
-# OPTION 1: VIEW FULL MENU
-# -----------------------------------------------------------------
-if menu_option == "📖 View Full Menu":
-    st.header("📖 Current Cocktail Menu")
 
-    for category, drinks in db.items():
-        if drinks:
-            st.subheader(f"⭐ {category.upper()} BASE")
-            for drink in drinks:
-                tag = "🟢 [CLASSIC]" if not drink.get('custom') else "🔵 [USER-CREATED]"
+@app.route('/add', methods=['POST'])
+def add_cocktail():
+    db = file_handler.load_database()
 
-                # Expandable card for each cocktail
-                with st.expander(f"{drink['name']} {tag}"):
-                    if 'glass' in drink:
-                        st.markdown(f"**Glassware:** {drink['glass']}")
-                    if 'instructions' in drink:
-                        st.markdown(f"**Instructions:** {drink['instructions']}")
+    # Capture form data from HTML
+    name = request.form.get('name')
+    category = request.form.get('category')
+    glass = request.form.get('glass')
+    ingredients_raw = request.form.get('ingredients')
 
-                    st.markdown("**Ingredients:**")
-                    for ing, amt in drink['ingredients'].items():
-                        st.write(f"- {ing}: {amt}ml")
+    # Parse ingredients string into a dictionary
+    ingredients = {}
+    for item in ingredients_raw.split(","):
+        if ":" in item:
+            ing_name, amt = item.split(":")
+            ingredients[ing_name.strip()] = float(amt.strip())
 
-# -----------------------------------------------------------------
-# OPTION 2: ADD CUSTOM COCKTAIL
-# -----------------------------------------------------------------
-elif menu_option == "➕ Add Custom Cocktail":
-    st.header("➕ Create New Cocktail")
+    # Append to database and save
+    new_drink = {
+        "name": name,
+        "category": category,
+        "ingredients": ingredients,
+        "glass": glass,
+        "custom": True
+    }
+    db[category].append(new_drink)
+    file_handler.save_database(db)
 
-    with st.form("add_cocktail_form", clear_on_submit=True):
-        name = st.text_input("Enter Cocktail Name:").strip()
-        category = st.selectbox("Select Category:", list(db.keys()))
-        glass = st.text_input("Glassware (e.g., Highball glass):").strip()
-        instructions = st.text_area("Preparation Instructions:").strip()
+    # Reload the page
+    return redirect(url_for('index'))
 
-        st.markdown("##### Ingredients (Minimum 2 required)")
-        st.caption("Enter ingredient name and amount, separated by commas. Example: Light rum:50, Lime:20, Sugar:10")
-        ingredients_raw = st.text_input("Ingredients list:")
 
-        submitted = st.form_submit_button("Add Cocktail")
+@app.route('/delete/<category>/<drink_name>', methods=['POST'])
+def delete_cocktail(category, drink_name):
+    db = file_handler.load_database()
 
-        if submitted:
-            if not name:
-                st.error("Please enter a cocktail name.")
-            else:
-                # Parse ingredients
-                ingredients = {}
-                try:
-                    for item in ingredients_raw.split(","):
-                        if ":" in item:
-                            ing_name, amt = item.split(":")
-                            ingredients[ing_name.strip()] = float(amt.strip())
-                except ValueError:
-                    st.error("Please ensure ingredient amounts are valid numbers.")
+    # Filter out the deleted drink and save
+    db[category] = [d for d in db[category] if d['name'] != drink_name]
+    file_handler.save_database(db)
 
-                if len(ingredients) < 2:
-                    st.error("Error: Minimum 2 ingredients required!")
-                else:
-                    # Append new recipe
-                    new_drink = {
-                        "name": name,
-                        "category": category,
-                        "ingredients": ingredients,
-                        "glass": glass,
-                        "instructions": instructions,
-                        "custom": True
-                    }
-                    db[category].append(new_drink)
+    return redirect(url_for('index'))
 
-                    # Force save back to file using file_handler context logic
-                    file_handler.save_database(db)
-                    st.success(f"Successfully added {name} to {category} database!")
-                    st.rerun()
 
-# -----------------------------------------------------------------
-# OPTION 3: DELETE A COCKTAIL
-# -----------------------------------------------------------------
-elif menu_option == "❌ Delete a Cocktail":
-    st.header("❌ Delete a Cocktail")
-
-    category = st.selectbox("Select Category to view:", list(db.keys()))
-    drinks = db[category]
-
-    if not drinks:
-        st.warning(f"No drinks found in {category}.")
-    else:
-        drink_names = [d['name'] for d in drinks]
-        selected_drink_name = st.selectbox("Select Cocktail to Delete:", drink_names)
-
-        if st.button("Delete Selected Cocktail", type="primary"):
-            # Filter out the selected drink
-            db[category] = [d for d in drinks if d['name'] != selected_drink_name]
-            file_handler.save_database(db)
-            st.success(f"Removed '{selected_drink_name}' from the database.")
-            st.rerun()
-
-# -----------------------------------------------------------------
-# OPTION 4: SEARCH BY INGREDIENT
-# -----------------------------------------------------------------
-elif menu_option == "🔍 Search by Ingredient":
-    st.header("🔍 Search Menu by Ingredient")
-    query = st.text_input("Enter ingredient name (e.g., Rum, Juice, Mint):").strip().lower()
-
-    if query:
-        found = False
-        for category, drinks in db.items():
-            for drink in drinks:
-                if any(query in ing.lower() for ing in drink['ingredients']):
-                    st.info(f"🍹 **{drink['name']}** found in *{category} Base*")
-                    found = True
-        if not found:
-            st.warning("No matching cocktail recipes found.")
-
-# -----------------------------------------------------------------
-# OPTION 5: BAR STATISTICS
-# -----------------------------------------------------------------
-elif menu_option == "📊 Bar Statistics":
-    st.header("📊 Bar Summary & Metrics")
-
-    # Render interactive grid metrics
-    cols = st.columns(len(db.keys()) + 1)
-    total_recipes = 0
-
-    for idx, (cat, drinks) in enumerate(db.items()):
-        cols[idx].metric(label=f"{cat} Recipes", value=len(drinks))
-        total_recipes += len(drinks)
-
-    cols[-1].metric(label="TOTAL RECIPES", value=total_recipes)
-
-    # Optional bar chart visualization
-    stats_data = {cat: len(drinks) for cat, drinks in db.items()}
-    st.bar_chart(stats_data)
+if __name__ == '__main__':
+    # Binds to 0.0.0.0 to allow AWS external traffic on port 8501
+    app.run(host='0.0.0.0', port=8501)

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktail Bar Manager Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .hero { background: #343a40; color: white; padding: 2rem 0; margin-bottom: 2rem; }
+    </style>
+</head>
+<body>
+    <div class="hero text-center shadow-sm">
+        <h1>🍸 Cocktail Bar Manager Pro</h1>
+    </div>
+
+    <div class="container mb-5">
+        <!-- Statistics Section -->
+        <div class="row text-center mb-4">
+            {% for cat, count in stats.items() %}
+            <div class="col-md-3">
+                <div class="card shadow-sm py-2">
+                    <h5>{{ cat }} Base</h5>
+                    <p class="fs-4 mb-0">{{ count }} Recipes</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        <!-- Add Cocktail Form -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">➕ Add New Cocktail</div>
+            <div class="card-body">
+                <form action="/add" method="POST">
+                    <div class="row mb-3">
+                        <div class="col"><input type="text" name="name" class="form-control" placeholder="Cocktail Name" required></div>
+                        <div class="col">
+                            <select name="category" class="form-select">
+                                {% for cat in db.keys() %}
+                                <option value="{{ cat }}">{{ cat }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col"><input type="text" name="glass" class="form-control" placeholder="Glassware"></div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="ingredients" class="form-control" placeholder="Ingredients (e.g., Rum:50, Lime:20)" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Save Recipe</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Full Menu View -->
+        <h3 class="mb-3">📖 Current Menu</h3>
+        {% for category, drinks in db.items() %}
+            <h5 class="mt-4 text-secondary">{{ category.upper() }} BASE</h5>
+            <div class="row">
+                {% for drink in drinks %}
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ drink.name }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ drink.glass }}</h6>
+                            <p class="card-text mb-1"><strong>Ingredients:</strong></p>
+                            <ul class="mb-2">
+                                {% for ing, amt in drink.ingredients.items() %}
+                                <li>{{ ing }}: {{ amt }}ml</li>
+                                {% endfor %}
+                            </ul>
+                            <!-- Delete Button -->
+                            <form action="/delete/{{ category }}/{{ drink.name }}" method="POST">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
